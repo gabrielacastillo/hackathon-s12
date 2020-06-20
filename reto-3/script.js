@@ -1,17 +1,36 @@
 //Funcion Constructora
-function GabyDropDown (dropDownId){
-    this.dropDownId = dropDownId;
-    this.toggle = function(){
-        let dropDown = document.getElementById(this.dropDownId);
-        dropDown.classList.toggle("dropdown-active");
+function GabyModal(modalId) {
+  this.modalId = modalId;
+  this.init = function () {
+    const questions = document.querySelectorAll(".question");
+
+    // Click function for show the Modal
+    document.querySelectorAll(".show").forEach((e) => {
+      e.addEventListener("click", function () {
+        document.querySelector(".mask").classList.add("active");
+      });
+    });
+
+    // Function for close the Modal
+    function closeModal() {
+      document.querySelector(".mask").classList.remove("active");
     }
+
+    // Call the closeModal function on the clicks/keyboard
+    let list = document.querySelectorAll(".close, .mask");
+    list.forEach((e) => {
+      e.addEventListener("click", function () {
+        closeModal();
+      });
+    });
+
+    document.addEventListener("keyup", function (e) {
+      if (e.keyCode == 27) {
+        closeModal();
+      }
+    });
+  };
 }
 
-//Creando los Objetos
-let dropDown1 = new GabyDropDown("dropdown1");
-let dropDown2 = new GabyDropDown("dropdown2");
-let dropDown3 = new GabyDropDown("dropdown3");
-//Asignacion de Eventos
-document.getElementById("dropdown1").addEventListener("click", () => dropDown1.toggle());
-document.getElementById("dropdown2").addEventListener("click", () => dropDown2.toggle());
-document.getElementById("dropdown3").addEventListener("click", () => dropDown3.toggle());
+let gabyModal = new GabyModal("Accordion1");
+gabyModal.init();
